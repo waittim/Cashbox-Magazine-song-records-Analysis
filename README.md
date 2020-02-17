@@ -1,7 +1,7 @@
 # Cashbox Magazine song records Analysis
 
 
-The final report can be find here: [Final Report: 10 insights in music data](https://github.com/waittim/Cashbox-Magazine-song-records-Analysis/blob/master/10%20insights%20in%20music%20data.pdf)
+The final report can be found here: [Final Report: 10 insights in music data](https://github.com/waittim/Cashbox-Magazine-song-records-Analysis/blob/master/10%20insights%20in%20music%20data.pdf)
 
 
 ## Instructions On Running The Code
