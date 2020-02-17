@@ -15,11 +15,11 @@ The final report slide doc.
 The final report ppt file.
 - **10-read-in.Rmd**  
 Read in data and import needed libraries.
-- **20-feature-engineering.Rmd** 
+- **20-feature-engineering.Rmd**  
 Basic feature engineering on the raw data frame.
-- **30-exploratory-data-analysis.Rmd** 
+- **30-exploratory-data-analysis.Rmd**  
 Analysis and data visualization for insights.
-- **Analysis Exercise.xls** 
+- **Analysis Exercise.xls**  
 Raw data from Cashbox Magazine record chart.
 
 
