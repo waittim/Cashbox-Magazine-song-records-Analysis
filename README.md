@@ -7,4 +7,4 @@
 3. Run the part of 30-exploratory-data-analysis.Rmd file as needed.
 
 
-The final report can be find here: [Final Report: 10 insights in music data](10 insights in music data.pdf)
+The final report can be find here: [Final Report: 10 insights in music data](https://github.com/waittim/Cashbox-Magazine-song-records-Analysis/blob/master/10%20insights%20in%20music%20data.pdf)
