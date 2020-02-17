@@ -7,4 +7,11 @@
 3. Run the part of 30-exploratory-data-analysis.Rmd file as needed.
 
 
+**Instructions of Each file**
+
+- *10 insights in music data.pdf* -- The final report slide doc.
+- *10 insights in music data.pptx* -- The final report ppt file.
+- *10-read-in.Rmd* -- Read in data and import needed libraries.
+
+
 The final report can be find here: [Final Report: 10 insights in music data](https://github.com/waittim/Cashbox-Magazine-song-records-Analysis/blob/master/10%20insights%20in%20music%20data.pdf)
