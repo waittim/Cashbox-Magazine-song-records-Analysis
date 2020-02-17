@@ -1,0 +1,28 @@
+---
+title: "20-feature-engineering"
+output: html_notebook
+---
+
+Basic feature engineering on raw merged data.
+```{r}
+df <- df %>% 
+  mutate(weeks_at_number_1 = as.integer(weeks_at_number_1),
+         weeks_top_10 = as.integer(weeks_top_10),
+         weeks_top_25 = as.integer(weeks_top_25),
+         weeks_top_50 = as.integer(weeks_top_50),
+         peak_position = as.integer(peak_position),
+         bonus_weeks = as.integer(bonus_weeks),
+         sub_points = as.integer(sub_points),
+         peak_points = as.integer(peak_points),
+         total_points = as.integer(total_points),
+         peak_year = as.integer(peak_year),
+         debut_date = as.integer(debut_date),
+         debut_date = as.Date(debut_date, origin="1899-12-30"), 
+         # It shoule be 1900-01-01, but due to 1900-leap-year-bug of Excel, use 1899-12-30 can get right answer.
+         peak_date = as.integer(peak_date),
+         peak_date = as.Date(peak_date, origin="1899-12-30"),
+         weeks_to_reach_peak = as.integer(weeks_to_reach_peak),
+         year=as.factor(year)
+         )
+```
+
