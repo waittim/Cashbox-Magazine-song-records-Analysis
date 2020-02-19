@@ -1,9 +1,10 @@
 ---
 title: "10-read-in"
-output: html_notebook
+output: github_document
 ---
 
-Import libraries.
+
+## Import libraries.
 ```{r}
 library(readxl)
 library(tidyverse)
@@ -12,85 +13,44 @@ library(ggplot2)
 library(tidytext)
 library(wordcloud2)
 library(RColorBrewer)
-
 ```
 
-Read in raw data and make the column names.
+Library introduction (The parts used in this pipeline):
+
+- **readxl**: read in data in Excel file.
+- **tidyverse**: help manage the data frame in tidy sentences.
+- **janitor**: clean the column names.
+- **ggplot2**: create plots.
+- **tidytext**: import stop words data for text analysis and get word sentiment dictionary.
+- **wordcloud2**: create word cloud graph.
+- **RColorBrewer**: set color palette for graphes.
+
+## Read in raw data and make the column names.
+
 ```{r}
-df_2000 <- read_excel("Analysis Exercise.xls", 
-                      sheet = "2000")
-names(df_2000) <- df_2000[1,]
-df_2000 <- df_2000[-1,]
-
-df_2001 <- read_excel("Analysis Exercise.xls", 
-                      sheet = "2001")
-names(df_2001) <- df_2001[1,]
-df_2001 <- df_2001[-1,]
-
-df_2002 <- read_excel("Analysis Exercise.xls", 
-                      sheet = "2002")
-names(df_2002) <- df_2002[1,]
-df_2002 <- df_2002[-1,]
-
-df_2003 <- read_excel("Analysis Exercise.xls", 
-                      sheet = "2003")
-names(df_2003) <- df_2003[1,]
-df_2003 <- df_2003[-1,]
-
-df_2004 <- read_excel("Analysis Exercise.xls", 
-                      sheet = "2004")
-names(df_2004) <- df_2004[1,]
-df_2004 <- df_2004[-1,]
-
-df_2005 <- read_excel("Analysis Exercise.xls", 
-                      sheet = "2005")
-names(df_2005) <- df_2005[1,]
-df_2005 <- df_2005[-1,]
-
-df_2006 <- read_excel("Analysis Exercise.xls", 
-                      sheet = "2006")
-names(df_2006) <- df_2006[1,]
-df_2006 <- df_2006[-1,]
-
-df_2007 <- read_excel("Analysis Exercise.xls", 
-                      sheet = "2007")
-names(df_2007) <- df_2007[1,]
-df_2007 <- df_2007[-1,]
-
-df_2008 <- read_excel("Analysis Exercise.xls", 
-                      sheet = "2008")
-names(df_2008) <- df_2008[1,]
-df_2008 <- df_2008[-1,]
-
-df_2009 <- read_excel("Analysis Exercise.xls", 
-                      sheet = "2009")
-names(df_2009) <- df_2009[1,]
-df_2009 <- df_2009[-1,]
-
-df_peak_points <- read_excel("Analysis Exercise.xls", 
-                      sheet = "Peak Points")
+for(i in seq(2000,2009,1)){
+  df <- read_excel("Analysis Exercise.xls", sheet = as.character(i))
+  names(df) <- df[1,]
+  df <- df[-1,] %>% 
+    clean_names() %>% 
+    mutate(year = i)
+  assign(paste0("df_", i), df)
+}
 ```
 
-Clean the column names and add year variable.
-```{r}
-df_2000 <- df_2000 %>% clean_names() %>% mutate(year=2000)
-df_2001 <- df_2001 %>% clean_names() %>% mutate(year=2001)
-df_2002 <- df_2002 %>% clean_names() %>% mutate(year=2002)
-df_2003 <- df_2003 %>% clean_names() %>% mutate(year=2003)
-df_2004 <- df_2004 %>% clean_names() %>% mutate(year=2004)
-df_2005 <- df_2005 %>% clean_names() %>% mutate(year=2005)
-df_2006 <- df_2006 %>% clean_names() %>% mutate(year=2006)
-df_2007 <- df_2007 %>% clean_names() %>% mutate(year=2007)
-df_2008 <- df_2008 %>% clean_names() %>% mutate(year=2008)
-df_2009 <- df_2009 %>% clean_names() %>% mutate(year=2009)
-```
+In this Excel file, the data of different years was divided to sub-tables, therefore, I need to read in them one by one. 
 
-Merge all of data.
+And the column names in each table were not in the first row but second row. So I removed the fist row and transferred the second row to be the column names. Then, I used `clean_names()` function to make the names lowercase without blank space.
+
+The function `assign` can help me use different names to reserve the data.
+
+After that, I merged all of the data.
 ```{r}
 df <- 
   bind_rows(df_2000, df_2001, df_2002, df_2003, df_2004, df_2005, df_2006, df_2007, df_2008, df_2009)
 ```
 
+Import the stop words for text analysis in the EDA part.
 ```{r}
 data("stop_words")
 ```

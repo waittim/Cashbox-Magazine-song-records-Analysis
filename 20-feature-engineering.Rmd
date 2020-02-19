@@ -1,9 +1,11 @@
 ---
 title: "20-feature-engineering"
-output: html_notebook
+output: github_document
 ---
 
-Basic feature engineering on raw merged data.
+This data set is clean enouph and I don't need to clean the data as normal.
+
+Basic feature engineering on raw merged data:
 ```{r}
 df <- df %>% 
   mutate(weeks_at_number_1 = as.integer(weeks_at_number_1),
@@ -18,7 +20,6 @@ df <- df %>%
          peak_year = as.integer(peak_year),
          debut_date = as.integer(debut_date),
          debut_date = as.Date(debut_date, origin="1899-12-30"), 
-         # It shoule be 1900-01-01, but due to 1900-leap-year-bug of Excel, use 1899-12-30 can get right answer.
          peak_date = as.integer(peak_date),
          peak_date = as.Date(peak_date, origin="1899-12-30"),
          weeks_to_reach_peak = as.integer(weeks_to_reach_peak),
@@ -26,3 +27,6 @@ df <- df %>%
          )
 ```
 
+In this chunk, I only need to make all of the column have right data type.
+
+**Hint:** In the date part, because Excel save date by count the distance between the date and 1900-01-01, the date columns in the raw data are the days. I need to tranfer them to be the real date. The `origin` attribute shoule be 1900-01-01, but due to 1900-leap-year-bug of Excel, use 1899-12-30 can get right answer.

@@ -1,7 +1,96 @@
 ---
-title: "30-exploratory-data-analysis"
+title: "R Notebook for md"
 output: github_document
 ---
+
+# 10-read-in
+
+## Import libraries.
+```{r}
+library(readxl)
+library(tidyverse)
+library(janitor)
+library(ggplot2)
+library(tidytext)
+library(wordcloud2)
+library(RColorBrewer)
+```
+
+Library introduction (The parts used in this pipeline):
+
+- **readxl**: read in data in Excel file.
+- **tidyverse**: help manage the data frame in tidy sentences.
+- **janitor**: clean the column names.
+- **ggplot2**: create plots.
+- **tidytext**: import stop words data for text analysis and get word sentiment dictionary.
+- **wordcloud2**: create word cloud graph.
+- **RColorBrewer**: set color palette for graphes.
+
+## Read in raw data and make the column names.
+
+```{r}
+for(i in seq(2000,2009,1)){
+  df <- read_excel("Analysis Exercise.xls", sheet = as.character(i))
+  names(df) <- df[1,]
+  df <- df[-1,] %>% 
+    clean_names() %>% 
+    mutate(year = i)
+  assign(paste0("df_", i), df)
+}
+```
+
+In this Excel file, the data of different years was divided to sub-tables, therefore, I need to read in them one by one. 
+
+And the column names in each table were not in the first row but second row. So I removed the fist row and transferred the second row to be the column names. Then, I used `clean_names()` function to make the names lowercase without blank space.
+
+The function `assign` can help me use different names to reserve the data.
+
+After that, I merged all of the data.
+```{r}
+df <- 
+  bind_rows(df_2000, df_2001, df_2002, df_2003, df_2004, df_2005, df_2006, df_2007, df_2008, df_2009)
+```
+
+Import the stop words for text analysis in the EDA part.
+```{r}
+data("stop_words")
+```
+
+
+# 20-feature-engineering
+
+This data set is clean enouph and I don't need to clean the data as normal.
+
+Basic feature engineering on raw merged data:
+```{r}
+df <- df %>% 
+  mutate(weeks_at_number_1 = as.integer(weeks_at_number_1),
+         weeks_top_10 = as.integer(weeks_top_10),
+         weeks_top_25 = as.integer(weeks_top_25),
+         weeks_top_50 = as.integer(weeks_top_50),
+         peak_position = as.integer(peak_position),
+         bonus_weeks = as.integer(bonus_weeks),
+         sub_points = as.integer(sub_points),
+         peak_points = as.integer(peak_points),
+         total_points = as.integer(total_points),
+         peak_year = as.integer(peak_year),
+         debut_date = as.integer(debut_date),
+         debut_date = as.Date(debut_date, origin="1899-12-30"), 
+         peak_date = as.integer(peak_date),
+         peak_date = as.Date(peak_date, origin="1899-12-30"),
+         weeks_to_reach_peak = as.integer(weeks_to_reach_peak),
+         year=as.factor(year)
+         )
+```
+
+In this chunk, I only need to make all of the column have right data type.
+
+**Hint:** In the date part, because Excel save date by count the distance between the date and 1900-01-01, the date columns in the raw data are the days. I need to tranfer them to be the real date. The `origin` attribute shoule be 1900-01-01, but due to 1900-leap-year-bug of Excel, use 1899-12-30 can get right answer.
+
+
+
+# 30-exploratory-data-analysis
+
 
 
 In this part, I will answer the following questions to finish the exploratory data analysis(EDA) part.
@@ -363,5 +452,6 @@ df %>%
   theme_classic()+
   labs(x="\nWeeks at Top 1", y="Weeks at Top 50\n")
 ```
+
 
 
