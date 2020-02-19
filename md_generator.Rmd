@@ -251,20 +251,19 @@ word_count <- title_words %>%
   summarise(number = n()) %>% 
   arrange(desc(number)) %>% 
   mutate(word = str_to_upper(word))
-word_count %>% 
-  arrange(word)
+word_count 
 ```
 
 Generate the word cloud by `wordcloud2` function.
 ```{r}
-wordcloud2(head(word_count,100),
-           size = 1, 
-           fontFamily = "Montserrat",
-           fontWeight = "Bold",
-           minRotation = -pi/6, 
-           maxRotation = -pi/6,
-           rotateRatio = 1,
-           color = "#125FA0")
+# wordcloud2(head(word_count,100),
+#            size = 1, 
+#            fontFamily = "Montserrat",
+#            fontWeight = "Bold",
+#            minRotation = -pi/6, 
+#            maxRotation = -pi/6,
+#            rotateRatio = 1,
+#            color = "#125FA0")
 ```
 
 ## Sentiment analysis of titles
