@@ -167,14 +167,16 @@ word_count
 
 Generate the word cloud by `wordcloud2` function.
 ```{r}
-wordcloud2(head(word_count,100),
-           size = 1, 
+wordcloud <- wordcloud2(head(word_count,100),
+           size = 1,
            fontFamily = "Montserrat",
            fontWeight = "Bold",
-           minRotation = -pi/6, 
+           minRotation = -pi/6,
            maxRotation = -pi/6,
            rotateRatio = 1,
            color = "#125FA0")
+htmlwidgets::saveWidget(wordcloud,"wordcloud.html",selfcontained = F)
+wordcloud
 ```
 
 ## Sentiment analysis of titles
