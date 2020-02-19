@@ -621,6 +621,4 @@ df %>%
   labs(x="\nWeeks at Top 1", y="Weeks at Top 50\n")
 ```
 
-    ## `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
-
 ![](md_generator_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
